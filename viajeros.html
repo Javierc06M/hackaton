@@ -19,6 +19,107 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <style>
+        .fixed-bottom-right {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f0f4f8;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      max-width: 350px;
+      transition: all 0.3s ease-in-out;
+    }
+    .fixed-bottom-right.hidden {
+      transform: translateY(calc(100% - 60px));
+    }
+    .fixed-bottom-right.hidden #tts-panel {
+      display: none;
+    }
+    .toggle-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .toggle-button:hover {
+      background-color: #357abd;
+    }
+    .toggle-button .hide-text {
+      display: inline;
+    }
+    .toggle-button .show-text {
+      display: none;
+    }
+    .fixed-bottom-right.hidden .toggle-button .hide-text {
+      display: none;
+    }
+    .fixed-bottom-right.hidden .toggle-button .show-text {
+      display: inline;
+    }
+    #tts-panel {
+      max-height: 60vh;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
+    #tts-panel h3 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+      font-size: 18px;
+    }
+    .tts-button {
+      margin: 8px 0;
+      padding: 12px;
+      background-color: #ffffff;
+      color: #2c3e50;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    .tts-button:hover:not(:disabled) {
+      background-color: #f5f5f5;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .tts-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .tts-button .status-icon {
+      font-size: 1.2em;
+      margin-left: 10px;
+    }
+    .tts-button.playing {
+      background-color: #e8f5e9;
+      border-color: #4caf50;
+    }
+    .tts-button.paused {
+      background-color: #fff3e0;
+      border-color: #ff9800;
+    }
+    @media (max-width: 768px) {
+      .fixed-bottom-right {
+        left: 20px;
+        right: 20px;
+        bottom: 10px;
+      }
+    }
+    </style>
 <!--
 
 TemplateMo 591 villa agency
@@ -29,6 +130,17 @@ https://templatemo.com/tm-591-villa-agency
   </head>
 
 <body>
+
+    <div id="tts-controls" class="fixed-bottom-right hidden">
+        <button id="toggle-tts-panel" class="toggle-button">
+          <span class="show-text">🔊 Abrir panel de audio</span>
+          <span class="hide-text">🔇 Cerrar panel de audio</span>
+        </button>
+        <div id="tts-panel">
+          <h3>Reproducir contenido</h3>
+          <div id="tts-buttons"></div>
+        </div>
+      </div>
 
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
@@ -129,30 +241,6 @@ https://templatemo.com/tm-591-villa-agency
                 </div>
               </div>
             </div>
-            <!-- <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                   does this work ?
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologist incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-              </div>
-            </div> -->
-            <!-- <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Why is Villa the best ?
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor kinfolk tonx seitan crucifix 3 wolf moon bicycle rights keffiyeh snackwave wolf same vice, chillwave vexillologist incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
         <div class="col-lg-4">
@@ -203,6 +291,133 @@ https://templatemo.com/tm-591-villa-agency
   <script src="assets/js/owl-carousel.js"></script>
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/custom.js"></script>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const ttsControls = document.getElementById('tts-controls');
+      const ttsButtons = document.getElementById('tts-buttons');
+      const toggleButton = document.getElementById('toggle-tts-panel');
+      let currentUtterance = null;
+      let speaking = false;
+      let currentButton = null;
+
+      const sections = [
+        { selector: '.page-heading h3', buttonText: 'Título de la página' },
+        { selector: '.main-content h4', buttonText: 'Nombre del lugar' },
+        { selector: '.main-content p', buttonText: 'Descripción del lugar' },
+        { selector: '#collapseOne .accordion-body', buttonText: '¿Cómo llegar?' },
+        { selector: '.info-table ul', buttonText: 'Información adicional' }
+      ];
+
+      toggleButton.addEventListener('click', () => {
+        ttsControls.classList.toggle('hidden');
+      });
+
+      sections.forEach(section => {
+        const button = document.createElement('button');
+        button.innerHTML = `${section.buttonText} <span class="status-icon">▶️</span>`;
+        button.className = 'tts-button';
+        button.setAttribute('aria-label', `Reproducir texto de ${section.buttonText}`);
+        button.onclick = () => toggleSpeech(button, section.selector);
+        ttsButtons.appendChild(button);
+      });
+
+      function toggleSpeech(button, selector) {
+        if (speaking && currentButton === button) {
+          pauseSpeech();
+        } else if (!speaking && currentUtterance && currentButton === button) {
+          resumeSpeech();
+        } else {
+          if (speaking) {
+            stopSpeech();
+          }
+          speakText(button, selector);
+        }
+      }
+
+      function speakText(button, selector) {
+        const elements = document.querySelectorAll(selector);
+        if (elements.length === 0) return;
+
+        let text = '';
+        elements.forEach(element => {
+          text += element.textContent + ' ';
+        });
+
+        if (!text.trim()) return;
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+
+        utterance.onend = () => {
+          speaking = false;
+          currentUtterance = null;
+          currentButton = null;
+          updateButtonStatus(button, '▶️');
+        };
+
+        utterance.onpause = () => {
+          speaking = false;
+          updateButtonStatus(button, '⏸️');
+        };
+
+        utterance.onresume = () => {
+          speaking = true;
+          updateButtonStatus(button, '⏹️');
+        };
+
+        speaking = true;
+        currentUtterance = utterance;
+        currentButton = button;
+        speechSynthesis.speak(utterance);
+        updateButtonStatus(button, '⏹️');
+      }
+
+      function pauseSpeech() {
+        if (speaking) {
+          speechSynthesis.pause();
+          speaking = false;
+          updateButtonStatus(currentButton, '⏸️');
+        }
+      }
+
+      function resumeSpeech() {
+        if (!speaking && currentUtterance) {
+          speechSynthesis.resume();
+          speaking = true;
+          updateButtonStatus(currentButton, '⏹️');
+        }
+      }
+
+      function stopSpeech() {
+        speechSynthesis.cancel();
+        speaking = false;
+        currentUtterance = null;
+        if (currentButton) {
+          updateButtonStatus(currentButton, '▶️');
+          currentButton = null;
+        }
+      }
+
+      function updateButtonStatus(button, icon) {
+        const statusIcon = button.querySelector('.status-icon');
+        if (statusIcon) {
+          statusIcon.textContent = icon;
+        }
+        button.classList.remove('playing', 'paused');
+        if (icon === '⏹️') {
+          button.classList.add('playing');
+        } else if (icon === '⏸️') {
+          button.classList.add('paused');
+        }
+      }
+
+      // Restablecer el estado cuando se cierra la página
+      window.addEventListener('beforeunload', () => {
+        stopSpeech();
+      });
+    });
+  </script>
 
   </body>
 </html>
